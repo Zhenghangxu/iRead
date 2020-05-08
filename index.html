@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/3943cf32cb.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <title>My Book List | iRead</title>
+</head>
+<body>
+  <nav id="top-nav">
+    <div class="container">
+      <div class="logo">
+        <img src="img/logo-icon.png" alt="logo">
+        <p>iRead</p>
+      </div>
+      <div class="toolbar">
+        <a href="#" id="add-to-list" class="btn"><i class="fas fa-plus"></i>Add To List</i></a>
+      </div>  
+    </div>
+  </nav>
+  <form id="add-book">
+    <div class="container">
+      <a class="btn-action delete-section"><i class="fas fa-times" aria-hidden="true"></i></a>
+      <h2>Add to List</h2>
+      <div class="field-group">
+        <label for="title-book">Title</label>
+        <input type="text" name="author" id="title-book">  
+      </div>
+      <div class="field-group">       
+        <label for="author-book">Author</label>
+        <input type="text" name="author" id="author-book">  
+      </div>
+      <div class="field-group">       
+        <label for="isbn-book">ISBN</label>
+        <input type="text" name="isbn" id="isbn-book">  
+      </div>
+      <div class="field-group">
+        <input type="submit" class="btn" value="Submit">
+      </div>
+    </div>  
+  </form>  
+  <main>
+    <div class="container">
+      <div class="title-pane">
+        <h2>My List</h2>
+      </div>
+      <table class="list-container">
+        <thead>
+            <tr>
+                <th scope="col"><i class="fas fa-book"></i>Title</th>
+                <th scope="col"><i class="fas fa-user-edit"></i>Author</th>
+                <th scope="col"><i class="fas fa-barcode"></i>ISBN</th>
+                <th scope="col"><i class="fas fa-paper-plane"></i></i>Action</th>
+            </tr>
+        </thead>
+        <tbody id="book-list">
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
