@@ -4,7 +4,7 @@
 // })
 
 // elements
-const addBook = document.querySelector("#add-to-list");
+const addBook = document.getElementById("add-to-list");
 const addBook_form = document.querySelector("#add-book");
 
 // Book Class
