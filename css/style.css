@@ -200,6 +200,9 @@ form#add-book {
   i.fas, i.far {
     display: block;
   }
+  .alert i.fas, .error i.fas, .success i.fas, i.far {
+    display: inline;
+  }
   #top-nav i.fas.fa-plus {
     display: none;
   }
