@@ -6,6 +6,15 @@
           box-sizing: border-box;
 }
 
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
 body {
   font-family: Roboto, sans-serif;
   background-color: white;
@@ -75,13 +84,20 @@ form .container .delete-section {
   right: 0.3rem;
 }
 
-form .field-group {
+form .field-group, form .search-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 0.3rem 0;
-  width: 100%;
   margin-bottom: 0.3rem;
 }
 
-form .field-group input {
+form .field-group input, form .search-box input {
+  width: 100%;
   border: 1px solid #dbdbdb;
   border-radius: 4px;
   padding: 0.3rem;
@@ -89,8 +105,57 @@ form .field-group input {
   outline: none;
 }
 
-form .field-group input:focus {
+form .field-group input:focus, form .search-box input:focus {
   border: 1px solid #000000;
+}
+
+form .search-box {
+  position: relative;
+  overflow: visible;
+}
+
+.collection, .suggestion {
+  font-size: 0.75rem;
+  padding: 0.3rem;
+  display: -ms-grid;
+  display: grid;
+  background-color: white;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  gap: 0.3rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+}
+
+.collection .collection-item, .suggestion .collection-item {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.suggestion {
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  z-index: 99;
+  display: none;
+}
+
+.suggestion .collection-item a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 4px;
+}
+
+.suggestion .collection-item a:hover {
+  background-color: #dbdbdb;
 }
 
 table {
@@ -180,7 +245,10 @@ table th:last-child, table td:last-child {
 
 form#add-book {
   border-bottom: 1px solid #dbdbdb;
-  display: none;
+}
+
+form#add-book .container {
+  overflow: visible;
 }
 
 .title-pane {
@@ -206,7 +274,7 @@ form#add-book {
   #top-nav i.fas.fa-plus {
     display: none;
   }
-  .field-group input {
+  .field-group input, form .search-box input {
     display: block;
   }
 }

@@ -19,27 +19,19 @@
       </div>  
     </div>
   </nav>
-  <form id="add-book">
+  <form id="add-book" autocomplete="off">
     <div class="container">
       <a class="btn-action delete-section"><i class="fas fa-times" aria-hidden="true"></i></a>
       <h2>Add to List</h2>
-      <div class="field-group">
-        <label for="title-book">Title</label>
-        <input type="text" name="author" id="title-book">  
+      <div class="field-group search-box" id="search-book">
+        <input type="search" list="search-results" name="author" id="title-book">
+
+        <ul class="collection suggestion">
+        </ul>    
       </div>
-      <div class="field-group">       
-        <label for="author-book">Author</label>
-        <input type="text" name="author" id="author-book">  
-      </div>
-      <div class="field-group">       
-        <label for="isbn-book">ISBN</label>
-        <input type="text" name="isbn" id="isbn-book">  
-      </div>
-      <div class="field-group">
-        <input type="submit" class="btn" value="Submit">
-      </div>
+
     </div>  
-  </form>  
+  </form>
   <main>
     <div class="container">
       <div class="title-pane">
@@ -58,6 +50,7 @@
         </tbody>
       </table>
     </div>
+
   </main>
   <script src="scripts/app.js"></script>
 </body>
