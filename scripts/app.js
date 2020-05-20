@@ -198,7 +198,7 @@ searchBox.querySelector("#title-book").addEventListener("keyup",(e)=>{
     .catch(err=>console.log(err));
 })
 // searchBox.querySelector("#title-book").addEventListener("blur",()=>{
-//   searchBox.querySelector(".suggestion").style.display="none";
+//   searchBox.querySelector(".suggestion").style.visibility="hidden";
 // })
 
 // TODO implement add to list function

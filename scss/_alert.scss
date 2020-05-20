@@ -1,0 +1,16 @@
+.alert{
+  padding: $small-gap;
+  color: $background-color;
+  background-color: $element-color-dark;
+  border-radius: $border-radius;
+
+}
+.error{
+  @extend .alert;
+  background-color: #dc3545;
+}
+
+.success{
+  @extend .alert;
+  background-color: #28a745;
+}

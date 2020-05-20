@@ -1,0 +1,14 @@
+@media (max-width: 460px){
+  i.fas,i.far{
+    display: block;
+  }
+  .alert i.fas,i.far{
+    display: inline;
+  }
+  #top-nav i.fas.fa-plus{
+    display: none;
+  }
+  .field-group input{
+    display: block;
+  }
+}
