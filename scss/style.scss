@@ -4,7 +4,13 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+ul{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+  color: $text-color;
+}
 body{
   font-family: $body-font;
   background-color: $background-color;
@@ -63,11 +69,14 @@ form{
       right:$small-gap;
     }
   }
+
   .field-group{
+    display: flex;
+    flex-direction: column;
     padding: $small-gap 0;
-    width: 100%;
     margin-bottom: $small-gap;
     input{
+      width: 100%;
       border: 1px solid $element-color;
       border-radius: $border-radius;
       padding: $small-gap;
@@ -77,8 +86,58 @@ form{
     input:focus{
       border: 1px solid $text-color;
     }
+
+  }
+  .search-box{
+    @extend .field-group;
+    position: relative;
+    overflow: visible;
   }
 }
+.collection{
+  font-size: $normal-small;
+  padding: $small-gap;
+  display: grid;
+  background-color: $background-color;
+  grid-template-columns: 1fr;
+  gap: $small-gap;
+  border: 1px solid $element-color;
+  border-radius: $border-radius;
+  .collection-item{
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $element-color;
+  }
+}
+
+.suggestion{
+  @extend .collection;
+  width: 100%;
+  position:absolute;
+  top: 100%;
+  z-index: 100;
+  display: none;
+  // display: none;
+  .collection-item a{
+    display: flex;
+    width: 100%;
+    padding: $small-gap;
+    border-radius: $border-radius;
+  }
+  .book-suggestion{
+    z-index: 99;
+    ul{
+      pointer-events: none;
+      li{
+        pointer-events: none;
+      }  
+    }
+  }
+  .book-suggestion:hover{
+    background-color: $element-color;
+  }
+}
+
 table{
   table-layout: fixed;
   width: 100%;
@@ -95,6 +154,7 @@ table{
     border-right: none;
   }
 }
+
 .book-name{
   font-style: italic;
   font-family:$title-font;
@@ -151,7 +211,9 @@ table{
 // form-add-book
 form#add-book{
   border-bottom: 1px solid $element-color;
-  display: none;
+  .container{
+    overflow: visible;
+  }
 }
 
 
