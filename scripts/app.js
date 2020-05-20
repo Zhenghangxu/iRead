@@ -11,11 +11,15 @@ const searchBox = document.querySelector("#search-book");
 // Book Class
 class Book{
   constructor(title,author,isbn){
-      this.title=title;
-      this.author=author;
-      this.isbn=isbn;
-      this.id = Math.floor(Math.random()*100000);   
+    if (!isbn) {
+      this.isbn = "N/A"
+    } else {
+      this.isbn = isbn;
     }
+    this.title=title;
+    this.author=author;
+    this.id = Math.floor(Math.random()*100000);   
+  }
 }
 
 class search{
@@ -40,13 +44,22 @@ class search{
       next:()=>{
         if (nextIndex < results.length) {
           let nextBook = results[nextIndex++]["volumeInfo"];
+          let nextIsbn;
+          // obtain ISBN if available
+          // check if there is any iD available
+          if (nextBook["industryIdentifiers"]) {
+            nextBook["industryIdentifiers"].forEach((idObj)=>{
+              if (idObj["type"]=="ISBN_13") {
+                nextIsbn = idObj.identifier
+              }
+            })
+          // if there is no id available
+          }
           return {
-            author:nextBook["authors"],
+            author:String(nextBook["authors"]),
             title:nextBook["title"],
-            isbn:nextBook["industryIdentifiers"],
-            // thumbnail:nextBook["imageLinks"]["smallThumbnail"],
+            isbn:nextIsbn,
             done:false
-  
           }
         } else {
           return {done:true}
@@ -92,10 +105,11 @@ class UI{
       let suggestion = document.createElement("li");
       suggestion.classList.add("collection-item");
       suggestion.innerHTML = `
-        <a href="#" class="book-suggestion">
+        <a href="#" data-title="${book["title"]}" data-author="${book.author}" data-isbn="${book.isbn}" class="book-suggestion">
           <ul>
-            <li class="book-name" data-title=${book["title"]}>${book["title"]}</li>
-            <li class="author" data-author=${book.author}>${book.author}</li>
+            <li class="book-name">${book["title"]}</li>
+            <li class="author">${book.author}</li>
+            <li class="author">${book.isbn}</li>
           </ul>
         </a>
       `
@@ -178,29 +192,41 @@ searchBox.querySelector("#title-book").addEventListener("keyup",(e)=>{
   searchBox.querySelector(".suggestion").style.display="block";
   request.searchBook(e.target.value)
     .then(data=>{
+      console.log(data);
       UI.displaySuggestions(data);
 
     })
     .catch(err=>console.log(err));
 })
-searchBox.querySelector("#title-book").addEventListener("blur",()=>{
-  searchBox.querySelector(".suggestion").style.display="none";
-})
+// searchBox.querySelector("#title-book").addEventListener("blur",()=>{
+//   searchBox.querySelector(".suggestion").style.display="none";
+// })
 
-
+// TODO implement add to list function
 searchBox.addEventListener("click",function(e) {
-  // get form values
+  // get title, author, and ISBN values
+  const element = e.target
+  console.log(element);
+  if (element.classList.contains("book-suggestion")) {
+    // get book info
+    const title = element.dataset.title;
+    const author = element.dataset.author;
+    const isbn = element.dataset.isbn;
+    // instantiate new book class
+    const book = new Book(title,author,isbn);
+    
+    if(title === "" || author===""||isbn===""){
+      UI.showAlert("Value can not be empty, please try again","error");
+    }else{
+      UI.insert_to_list(book);
+      Storage.addBook(book);
+      UI.showAlert("Book Added","success");
+      searchBox.querySelector(".suggestion").style.display="none";
+    }
+    // TODO delete clear fields function
+    e.preventDefault();
+  }
 
-  // const book = new Book(title,author,isbn);
-  // if(title === "" || author===""||isbn===""){
-  //   UI.showAlert("Value can not be empty, please try again","error");
-  // }else{
-  //   UI.insert_to_list(book);
-  //   Storage.addBook(book);
-  //   UI.showAlert("Book Added","success");
-  // }
-  // UI.clear_fields();
-  // e.preventDefault();
 })
 // remove from booklist
 document.querySelector("#book-list").addEventListener("click",function (e) {

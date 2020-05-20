@@ -115,7 +115,7 @@ form{
   width: 100%;
   position:absolute;
   top: 100%;
-  z-index: 99;
+  z-index: 100;
   display: none;
   // display: none;
   .collection-item a{
@@ -124,7 +124,16 @@ form{
     padding: $small-gap;
     border-radius: $border-radius;
   }
-  .collection-item a:hover{
+  .book-suggestion{
+    z-index: 99;
+    ul{
+      pointer-events: none;
+      li{
+        pointer-events: none;
+      }  
+    }
+  }
+  .book-suggestion:hover{
     background-color: $element-color;
   }
 }

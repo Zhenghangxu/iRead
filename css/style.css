@@ -141,7 +141,7 @@ form .search-box {
   width: 100%;
   position: absolute;
   top: 100%;
-  z-index: 99;
+  z-index: 100;
   display: none;
 }
 
@@ -154,7 +154,19 @@ form .search-box {
   border-radius: 4px;
 }
 
-.suggestion .collection-item a:hover {
+.suggestion .book-suggestion {
+  z-index: 99;
+}
+
+.suggestion .book-suggestion ul {
+  pointer-events: none;
+}
+
+.suggestion .book-suggestion ul li {
+  pointer-events: none;
+}
+
+.suggestion .book-suggestion:hover {
   background-color: #dbdbdb;
 }
 
