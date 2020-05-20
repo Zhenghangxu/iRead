@@ -11,11 +11,7 @@ const searchBox = document.querySelector("#search-book");
 // Book Class
 class Book{
   constructor(title,author,isbn){
-    if (!isbn) {
-      this.isbn = "N/A"
-    } else {
-      this.isbn = isbn;
-    }
+    this.isbn = isbn;
     this.title=title;
     this.author=author;
     this.id = Math.floor(Math.random()*100000);   
@@ -53,7 +49,10 @@ class search{
                 nextIsbn = idObj.identifier
               }
             })
-          // if there is no id available
+          // if there is no iSBN available
+          }
+          if (nextIsbn===undefined) {
+            nextIsbn = "ISBN Not Available";
           }
           return {
             author:String(nextBook["authors"]),
