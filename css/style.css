@@ -358,6 +358,11 @@ a {
   color: #000000;
 }
 
+a.normalized {
+  text-decoration: underline;
+  color: #039be5;
+}
+
 body {
   font-family: Roboto, sans-serif;
   background-color: white;
@@ -599,9 +604,6 @@ form .search-box {
 }
 
 @media (max-width: 460px) {
-  i.fas, i.far {
-    display: block;
-  }
   .alert i.fas, .error i.fas, .success i.fas, i.far {
     display: inline;
   }
@@ -610,6 +612,21 @@ form .search-box {
   }
   .field-group input, form .search-box input {
     display: block;
+  }
+  table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  table .mobile-wide {
+    width: 90%;
+  }
+  .mobile-hide {
+    display: none;
+  }
+  .cut-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

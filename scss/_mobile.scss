@@ -1,7 +1,4 @@
 @media (max-width: 460px){
-  i.fas,i.far{
-    display: block;
-  }
   .alert i.fas,i.far{
     display: inline;
   }
@@ -10,5 +7,20 @@
   }
   .field-group input{
     display: block;
+  }
+  table{
+    table-layout: fixed;
+    width: 100%;
+    .mobile-wide{
+      width: 90%;
+    }
+  }
+  .mobile-hide{
+    display: none;
+  }
+  .cut-text{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
   }
 }
