@@ -10,10 +10,11 @@ const searchBox = document.querySelector("#search-book");
 
 // Book Class
 class Book{
-  constructor(title,author,isbn){
+  constructor(title,author,isbn,link){
     this.isbn = isbn;
     this.title=title;
     this.author=author;
+    this.link = link;
     this.id = Math.floor(Math.random()*100000);   
   }
 }
@@ -58,6 +59,7 @@ class search{
             author:String(nextBook["authors"]),
             title:nextBook["title"],
             isbn:nextIsbn,
+            link:nextBook["infoLink"],
             done:false
           }
         } else {
@@ -77,19 +79,18 @@ class UI{
     const html = document.createElement("tr");
     html.dataset.id = book.id.toString(); 
     html.innerHTML = `
-    <td class="book-name">${book.title}</td>
-    <td>${book.author}</td>
-    <td>${book.isbn}</td>
+    <td class="book-name cut-text">
+    <a href="${book.link}" class="normalized">
+      ${book.title}
+    </a>
+    </td>
+    <td class="mobile-hide">${book.author}</td>
+    <td class="mobile-hide">${book.isbn}</td>
     <td><a class="btn-action delete"><i class="fas fa-times"></i></a></td>    
     `
     list.appendChild(html);
   }
-  static clear_fields(){
-    const fields = addBook_form.querySelectorAll("input[type=text]");
-    fields.forEach(function (field) {
-      field.value = "";
-    })
-  }
+
   static displaySuggestions(data){
     searchBox.querySelector(".suggestion").innerHTML = "";
     const resultObj = search.resultIterator(data);
@@ -104,7 +105,7 @@ class UI{
       let suggestion = document.createElement("li");
       suggestion.classList.add("collection-item");
       suggestion.innerHTML = `
-      <a href="#" data-title="${book["title"]}" data-author="${book.author}" data-isbn="${book.isbn}" class="book-suggestion">
+      <a href="#" data-title="${book["title"]}" data-author="${book.author}" data-isbn="${book.isbn}" data-link="${book.link}" class="book-suggestion">
         <ul>
           <li class="book-name">${book["title"]}</li>
           <li class="author">${book.author}</li>
@@ -117,9 +118,8 @@ class UI{
     }
   }
   static delete_from_list(book){
-    if(book.classList.contains("delete")){
-      book.parentElement.parentElement.remove();
-    }   
+  
+      book.parentElement.parentElement.remove();  
   }
   static showAlert(msg,type){
     const html = document.createElement("div");
@@ -176,8 +176,10 @@ class Storage{
 
 }
 
+document.addEventListener("DOMContentLoaded", function(event) { 
+  Storage.displayBooks();
+});
 
-Storage.displayBooks();
 const request = new search();
 
 // Event Listeners
@@ -191,7 +193,6 @@ searchBox.querySelector("#title-book").addEventListener("keyup",(e)=>{
   searchBox.querySelector(".suggestion").style.display="block";
   request.searchBook(e.target.value)
     .then(data=>{
-      console.log(data);
       UI.displaySuggestions(data);
 
     })
@@ -201,14 +202,14 @@ searchBox.querySelector("#title-book").addEventListener("keyup",(e)=>{
 
 searchBox.addEventListener("click",function(e) {
   // get title, author, and ISBN values
-  const element = e.target
-  console.log(element);
+  const element = e.target;
   if (element.classList.contains("book-suggestion")) {
     const title = element.dataset.title;
     const author = element.dataset.author;
     const isbn = element.dataset.isbn;
+    const link = element.dataset.link;
     // instantiate new book class
-    const book = new Book(title,author,isbn);
+    const book = new Book(title,author,isbn,link);
     UI.insert_to_list(book);
     Storage.addBook(book);
     UI.showAlert("Book Added","success");
@@ -220,9 +221,10 @@ searchBox.addEventListener("click",function(e) {
 })
 // remove from booklist
 document.querySelector("#book-list").addEventListener("click",function (e) {
-  UI.delete_from_list(e.target);
-  Storage.removeBook(e.target);
-  e.preventDefault();
+  if (e.target.classList.contains("delete")) {
+    UI.delete_from_list(e.target);
+    Storage.removeBook(e.target);  
+  }
 })
 // hide form - reusable
 document.querySelector("form").addEventListener("click",function(e) {
@@ -231,16 +233,3 @@ document.querySelector("form").addEventListener("click",function(e) {
     addBook.style.display = "block";
   }
 })
-
-
-
-
-// `
-// <a href="#" data-title="${book["title"]}" data-author="${book.author}" data-isbn="${book.isbn}" class="book-suggestion">
-//   <ul>
-//     <li class="book-name">${book["title"]}</li>
-//     <li class="author">${book.author}</li>
-//     <li class="author">${book.isbn}</li>
-//   </ul>
-// </a>
-// `
