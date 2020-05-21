@@ -90,12 +90,7 @@ class UI{
     `
     list.appendChild(html);
   }
-  static clear_fields(){
-    const fields = addBook_form.querySelectorAll("input[type=text]");
-    fields.forEach(function (field) {
-      field.value = "";
-    })
-  }
+
   static displaySuggestions(data){
     searchBox.querySelector(".suggestion").innerHTML = "";
     const resultObj = search.resultIterator(data);
@@ -198,7 +193,6 @@ searchBox.querySelector("#title-book").addEventListener("keyup",(e)=>{
   searchBox.querySelector(".suggestion").style.display="block";
   request.searchBook(e.target.value)
     .then(data=>{
-      console.log(data);
       UI.displaySuggestions(data);
 
     })
@@ -208,8 +202,7 @@ searchBox.querySelector("#title-book").addEventListener("keyup",(e)=>{
 
 searchBox.addEventListener("click",function(e) {
   // get title, author, and ISBN values
-  const element = e.target
-  console.log(element);
+  const element = e.target;
   if (element.classList.contains("book-suggestion")) {
     const title = element.dataset.title;
     const author = element.dataset.author;
@@ -240,16 +233,3 @@ document.querySelector("form").addEventListener("click",function(e) {
     addBook.style.display = "block";
   }
 })
-
-
-
-
-// `
-// <a href="#" data-title="${book["title"]}" data-author="${book.author}" data-isbn="${book.isbn}" class="book-suggestion">
-//   <ul>
-//     <li class="book-name">${book["title"]}</li>
-//     <li class="author">${book.author}</li>
-//     <li class="author">${book.isbn}</li>
-//   </ul>
-// </a>
-// `
