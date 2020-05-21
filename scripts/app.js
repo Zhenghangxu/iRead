@@ -104,14 +104,14 @@ class UI{
       let suggestion = document.createElement("li");
       suggestion.classList.add("collection-item");
       suggestion.innerHTML = `
-        <a href="#" data-title="${book["title"]}" data-author="${book.author}" data-isbn="${book.isbn}" class="book-suggestion">
-          <ul>
-            <li class="book-name">${book["title"]}</li>
-            <li class="author">${book.author}</li>
-            <li class="author">${book.isbn}</li>
-          </ul>
-        </a>
-      `
+      <a href="#" data-title="${book["title"]}" data-author="${book.author}" data-isbn="${book.isbn}" class="book-suggestion">
+        <ul>
+          <li class="book-name">${book["title"]}</li>
+          <li class="author">${book.author}</li>
+          <li class="author">${book.isbn}</li>
+        </ul>
+      </a>      
+    `
       searchBox.querySelector(".suggestion").appendChild(suggestion);
       
     }
@@ -197,31 +197,22 @@ searchBox.querySelector("#title-book").addEventListener("keyup",(e)=>{
     })
     .catch(err=>console.log(err));
 })
-// searchBox.querySelector("#title-book").addEventListener("blur",()=>{
-//   searchBox.querySelector(".suggestion").style.display="none";
-// })
 
-// TODO implement add to list function
+
 searchBox.addEventListener("click",function(e) {
   // get title, author, and ISBN values
   const element = e.target
   console.log(element);
   if (element.classList.contains("book-suggestion")) {
-    // get book info
     const title = element.dataset.title;
     const author = element.dataset.author;
     const isbn = element.dataset.isbn;
     // instantiate new book class
     const book = new Book(title,author,isbn);
-    
-    if(title === "" || author===""||isbn===""){
-      UI.showAlert("Value can not be empty, please try again","error");
-    }else{
-      UI.insert_to_list(book);
-      Storage.addBook(book);
-      UI.showAlert("Book Added","success");
-      searchBox.querySelector(".suggestion").style.display="none";
-    }
+    UI.insert_to_list(book);
+    Storage.addBook(book);
+    UI.showAlert("Book Added","success");
+    searchBox.querySelector(".suggestion").style.display="none";
     // TODO delete clear fields function
     e.preventDefault();
   }
@@ -241,21 +232,15 @@ document.querySelector("form").addEventListener("click",function(e) {
   }
 })
 
-// const new_search = new search();
-// new_search.searchBook("peace",5)
-// .then(result=>console.log(result));
 
 
-// const html = `
-// <li class="collection-item">
-//   <a href="#" class="book-suggestion">
-//     <ul>
-//       <li class="book-name">Title:xxx</li>
-//       <li class="author">Author:xxx</li>
-//     </ul>
-//     <img src="" alt="" class="thumb_nail">  
-//   </a>
-// </li>
+
 // `
-
-
+// <a href="#" data-title="${book["title"]}" data-author="${book.author}" data-isbn="${book.isbn}" class="book-suggestion">
+//   <ul>
+//     <li class="book-name">${book["title"]}</li>
+//     <li class="author">${book.author}</li>
+//     <li class="author">${book.isbn}</li>
+//   </ul>
+// </a>
+// `

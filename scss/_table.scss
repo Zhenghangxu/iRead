@@ -1,0 +1,16 @@
+table{
+  table-layout: fixed;
+  width: 100%;
+  border-spacing: 0;
+  text-align: left;
+
+  th,td{
+    border-bottom: 1px solid $element-color;
+    padding: $small-gap;
+    word-wrap: break-word;
+  }
+
+  th:last-child,td:last-child{
+    border-right: none;
+  }
+}

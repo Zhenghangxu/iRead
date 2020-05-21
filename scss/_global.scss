@@ -1,0 +1,44 @@
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+  color: $text-color;
+}
+body{
+  font-family: $body-font;
+  background-color: $background-color;
+  color: $text-color;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $medium-gap;
+}
+// General Styling
+h1, h2, h3, h4, h5, h6{
+  font-family: $title-font;
+}
+
+h2{
+  font-size: $normal;
+  margin-bottom: $large-gap;
+}
+i.fas,i.far{
+  display: inline-block;
+  margin-right: $small-gap;
+  pointer-events: none;
+}
+.container{
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: $small-gap $large-gap;
+}
+.book-name{
+  font-style: italic;
+  font-family:$title-font;
+}

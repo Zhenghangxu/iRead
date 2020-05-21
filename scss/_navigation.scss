@@ -1,0 +1,31 @@
+#top-nav{
+  border-bottom: 1px solid $element-color;
+  background-color: rgba($color: $background-color, $alpha: 1.0);
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  .container{
+    margin: $large-gap auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+  }
+}
+
+#top-nav .logo{
+  display: flex;
+  align-items: center;
+  p{
+    font-size: $large;
+    font-family: $title-font;
+  }
+  img{
+    width: $large;
+    height: auto;
+  }
+}
+
+#top-nav .toolbar{
+  display: flex;
+  font-size:$normal;
+}
